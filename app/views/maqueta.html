@@ -1,0 +1,443 @@
+		div#formulario {
+			background-color: #FAF;
+			width: 900px;
+			margin: 0 auto;
+			padding: 10px;
+		}
+		div#institucion_combo_1, #institucion_combo_2, #institucion_combo_3, #institucion_combo_4  {
+			display: none;
+		}
+
+		span#mensaje {
+			display: block;
+		}
+		span#error_1, #error_2, #error_3, #error_4, #error_5 {
+			color: red;
+			display: none;
+		}
+		button#registrar {
+			display: none;
+		}
+		a#registrar {
+			display: none;
+		}
+
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script type="text/javascript">
+
+		/* DECLARAND VARIABLES GLOBALES */
+		var nombre = "";
+		var apellido_paterno = "";
+		var apellido_materno = "";
+		var nombre_completo = "";
+		var dia = "";
+		var mes = "";
+		var ano = "";
+		var fecha_de_nacimiento = "";
+		var curp = "No Especificado";
+		var email = "";
+		var genero = "";
+		var rfc = "";
+		var calle = "";
+		var colonia = "";
+		var codigo_postal = "";
+		var municipio_delegacion = "";
+		var ciudad_estado = "";
+		var direccion = "";
+		var categoria = "";
+		var institucion = "";
+		var nivel_academico = "";
+		var unidad_academica = "";
+		var completado = "";
+		var campo_1 = campo_2 = campo_3 = campo_4 = campo_5 = campo_6 = campo_7 = campo_8 =
+			campo_9 = campo_10 = campo_11 = campo_12 = campo_13 = campo_14 = campo_15 = campo_16 = campo_17 = campo_18 = campo_19 = "";
+		
+		/* FUNCION PARA VALIDAR FORMULARIO */  
+		function validar_formulario() {
+
+			/* RECOGIENDO VALORES */
+			nombre = $('#input_nombre').val();
+			if (nombre != "") { if(/^[A-zÀ-ú0-9 ]*$/.test(nombre) == false) { $('#error_1').show(); nombre = ""; } 
+            else { $('#error_1').hide(); nombre = $('#input_nombre').val(); } }
+			apellido_paterno = $('#input_apellido_paterno').val();
+			if (apellido_paterno != "") { if(/^[A-zÀ-ú0-9 ]*$/.test(apellido_paterno) == false) 
+			{ $('#error_2').show(); apellido_paterno = ""; } 
+            else { $('#error_2').hide(); apellido_paterno = $('#input_apellido_paterno').val(); } }
+			apellido_materno = $('#input_apellido_materno').val();
+			if (apellido_materno != "") { if(/^[A-zÀ-ú0-9 ]*$/.test(apellido_materno) == false) 
+			{ $('#error_3').show(); apellido_materno = ""; } 
+            else { $('#error_3').hide(); apellido_materno = $('#input_apellido_materno').val(); } }
+			nombre_completo = nombre + " " + apellido_paterno + " " + apellido_materno;
+			dia = $('#select_dia').val();
+			mes = $('#select_mes').val();
+			ano = $('#select_ano').val();
+			fecha_de_nacimiento = dia + " de " + mes + " de " + ano;
+			curp = $('#input_curp').val();
+			email = $('#input_email').val();
+			if (email != "") { if(/^[A-zÀ-ú0-9 @.-]*$/.test(email) == false) { $('#error_4').show(); email = ""; } 
+            else { $('#error_4').hide(); email = $('#input_email').val(); } }
+			if($('#input_genero_hombre').is(':checked')) { genero = $('#input_genero_hombre').val(); };
+			if($('#input_genero_mujer').is(':checked')) { genero = $('#input_genero_mujer').val(); };
+			rfc = $('#input_rfc').val();
+			calle = $('#input_calle').val();
+			colonia = $('#input_colonia').val();
+			codigo_postal = $('#input_codigo_postal').val();
+			if (codigo_postal != "") { if(/^[0-9 ]*$/.test(codigo_postal) == false) { $('#error_5').show(); codigo_postal = ""; } 
+            else { $('#error_5').hide(); codigo_postal = $('#input_codigo_postal').val(); } }
+			municipio_delegacion = $('#input_municipio_delegacion').val();
+			ciudad_estado = $('#input_ciudad_estado').val();
+			direccion = calle + ", Colonia: " + colonia + ", Código Postal: " + codigo_postal + ", " + 
+			municipio_delegacion + ", " + ciudad_estado;
+			if($('#input_categoria_docente').is(':checked')) { categoria = $('#input_categoria_docente').val(); };
+			if($('#input_categoria_administrativo').is(':checked')) { categoria = $('#input_categoria_administrativo').val(); };
+			if($('#input_categoria_alumno').is(':checked')) { categoria = $('#input_categoria_alumno').val(); };
+			if($('#input_categoria_otro').is(':checked')) { categoria = $('#input_categoria_otro').val(); };
+			institucion = $('#select_institucion').val();
+			nivel_academico = $('#select_nivel_academico').val();
+			if ($('#select_medio_superior').val() != "") { unidad_academica = $('#select_medio_superior').val(); }
+			if ($('#select_superior').val() != "") { unidad_academica = $('#select_superior').val(); }
+			if ($('#input_institucion_posgrado').val() != "") { unidad_academica = $('#input_institucion_posgrado').val(); }
+			if ($('#input_institucion_otro').val() != "") { unidad_academica = $('#input_institucion_otro').val(); }
+
+			/* MOSTRANDO Y OCULTANDO DIVS DE INSTITUCIÓN */
+			if (institucion == "IPN" && nivel_academico == "Medio Superior") { $('#institucion_combo_1').show(); } 
+			else { $('#institucion_combo_1').hide(); }
+			if (institucion == "IPN" && nivel_academico == "Superior") { $('#institucion_combo_2').show(); } 
+			else { $('#institucion_combo_2').hide(); }
+			if (institucion == "IPN" && nivel_academico == "Posgrado") { $('#institucion_combo_3').show(); } 
+			else { $('#institucion_combo_3').hide(); }
+			if (institucion == "Otro" && nivel_academico == "Medio Superior" 
+			|| nivel_academico == "Superior" || nivel_academico == "Posgrado") { $('#institucion_combo_4').show(); } 
+			else { $('#institucion_combo_4').hide(); } 
+
+			/* CONDICIONES PARA CONTINUAR */
+			if (nombre != "") { campo_1 = "ok"; } else { campo_1 = "error" }
+			if (apellido_paterno != "") { campo_2 = "ok"; } else { campo_2 = "error" }
+			if (apellido_materno != "") { campo_3 = "ok"; } else { campo_3 = "error" }
+			if (dia != "") { campo_4 = "ok"; } else { campo_4 = "error" }
+			if (mes != "") { campo_5 = "ok"; } else { campo_5 = "error" }
+			if (ano != "") { campo_6 = "ok"; } else { campo_6 = "error" }
+			if (email != "") { campo_7 = "ok"; } else { campo_7 = "error" }
+			if (genero != "") { campo_8 = "ok"; } else { campo_8 = "error" }
+			if (rfc != "") { campo_9 = "ok"; } else { campo_9 = "error" }
+			if (calle != "") { campo_10 = "ok"; } else { campo_10 = "error" }
+			if (colonia != "") { campo_11 = "ok"; } else { campo_11 = "error" }
+			if (codigo_postal != "") { campo_12 = "ok"; } else { campo_12 = "error" }
+			if (municipio_delegacion != "") { campo_13 = "ok"; } else { campo_13 = "error" }
+			if (ciudad_estado != "") { campo_14 = "ok"; } else { campo_14 = "error" }
+			if (categoria != "") { campo_15 = "ok"; } else { campo_15 = "error" }
+			if (institucion != "") { campo_16 = "ok"; } else { campo_16 = "error" }
+			if (nivel_academico != "") { campo_17 = "ok"; } else { campo_17 = "error" }
+			if (unidad_academica != "") { campo_18 = "ok"; } else { campo_18 = "error" }
+		
+			/* COMPROBANDO CAMPOS DE COMPLETADO */
+			if (campo_1 == "ok" && campo_2 =="ok" && campo_3 == "ok" && campo_4 =="ok" && campo_5 == "ok" && campo_6 =="ok"
+			&& campo_7 =="ok" && campo_8 == "ok" && campo_9 =="ok" && campo_10 == "ok" && campo_11 =="ok" && campo_12 =="ok" 
+			&& campo_13 =="ok" && campo_14 == "ok" && campo_15 =="ok" && campo_16 == "ok" && campo_17 =="ok" && campo_18 =="ok") {
+        	$('#registrar').show();
+        	$('#mensaje').hide();
+        	campo_19 = "ok";
+   	 		} else { 
+        	$('#registrar').hide();
+        	$('#mensaje').show();
+        	campo_19 = "error";
+    		}
+    		/* FIN */
+
+		}
+
+		function pintar() {
+
+			/* PINTANDO VARIABLES PARA EL VATS */
+			alert("NOMBRE: " + nombre_completo + "\n" + 
+			"FECHA DE NACIMIENTO: " + fecha_de_nacimiento + "\n" +
+			"CURP: " + curp + "\n" +
+			"EMAIL: " + email + "\n" +
+			"GENERO: " + genero + "\n" +
+			"DIRECCIÓN: " + direccion + "\n" +
+			"CATEGORÍA: " + categoria + "\n" +
+			"INSTITUCIÓN: " + institucion + "\n" +
+			"NIVEL ACADÉMICO: " + nivel_academico + "\n" +
+			"UNIDAD ACADÉMICA: " + unidad_academica);
+
+			console.log("NOMBRE: " + nombre_completo + "\n" + 
+			"FECHA DE NACIMIENTO: " + fecha_de_nacimiento + "\n" +
+			"CURP: " + curp + "\n" +
+			"EMAIL: " + email + "\n" +
+			"GENERO: " + genero + "\n" +
+			"DIRECCIÓN: " + direccion + "\n" +
+			"CATEGORÍA: " + categoria + "\n" +
+			"INSTITUCIÓN: " + institucion + "\n" +
+			"NIVEL ACADÉMICO: " + nivel_academico + "\n" +
+			"UNIDAD ACADÉMICA: " + unidad_academica);
+
+		}
+
+	</script>
+</head>
+<body>
+
+<div id="master">
+	<div id="formulario">
+		<h3>Datos del Participante:</h3>
+		<p><a href="http://localhost/IPN/formulario-2/maqueta.html"> actualizar </a></p>
+		<form id="formulario">
+			Nombre: <span id="error_1">* No se permiten caractéres especiales en este campo </span><br> 
+			<input type="text" name="input_nombre" id="input_nombre" onkeyup="validar_formulario()" 
+			onkeydown="validar_formulario()" required><br>
+			Apellido Paterno: <span id="error_2">* No se permiten caractéres especiales en este campo </span><br> 
+			<input type="text" name="input_apellido_paterno" id="input_apellido_paterno" onkeyup="validar_formulario()" 
+			onkeydown="validar_formulario()" required><br>
+			Apellido Materno: <span id="error_3">* No se permiten caractéres especiales en este campo </span><br>
+			<input type="text" name="input_apellido_materno" id="input_apellido_materno" onkeyup="validar_formulario()" 
+			onkeydown="validar_formulario()" required><br>
+			Fecha de Nacimiento:<br> 
+			<select name="select_dia" id="select_dia" onchange="validar_formulario()" required>
+				<option value="">Día</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+				<option value="13">13</option>
+				<option value="14">14</option>
+				<option value="15">15</option>
+				<option value="16">16</option>
+				<option value="17">17</option>
+				<option value="18">18</option>
+				<option value="19">19</option>
+				<option value="20">20</option>
+				<option value="21">21</option>
+				<option value="22">22</option>
+				<option value="23">23</option>
+				<option value="24">24</option>
+				<option value="25">25</option>
+				<option value="26">26</option>
+				<option value="27">27</option>
+				<option value="28">28</option>
+				<option value="29">29</option>
+				<option value="30">30</option>
+				<option value="31">31</option>	
+			</select>
+			<select name="select_mes" id="select_mes" onchange="validar_formulario()" required> 
+				<option value="">Mes</option>
+				<option value="Enero">Enero</option>
+				<option value="Febrero">Febrero</option>
+				<option value="Marzo">Marzo</option>
+				<option value="Abril">Abril</option>
+				<option value="Mayo">Mayo</option>
+				<option value="Junio">Junio</option>
+				<option value="Julio">Julio</option>
+				<option value="Agosto">Agosto</option>
+				<option value="Septiembre">Septiembre</option>
+				<option value="Octubre">Octubre</option>
+				<option value="Noviembre">Noviembre</option>
+				<option value="Diciembre">Diciembre</option>
+			</select>
+			<select name="select_ano" id="select_ano" onchange="validar_formulario()" required>
+					<option value="">Año</option>
+					<option value="2005">2005</option>
+					<option value="2004">2004</option>
+					<option value="2003">2003</option>
+					<option value="2002">2002</option>
+					<option value="2001">2001</option>
+					<option value="2000">2000</option>
+					<option value="1999">1999</option>
+					<option value="1998">1998</option>
+					<option value="1997">1997</option>
+					<option value="1996">1996</option>
+					<option value="1995">1995</option>
+					<option value="1994">1994</option>
+					<option value="1993">1993</option>
+					<option value="1992">1992</option>
+					<option value="1991">1991</option>
+					<option value="1990">1990</option>
+					<option value="1989">1989</option>
+					<option value="1988">1988</option>
+					<option value="1987">1987</option>
+					<option value="1986">1986</option>
+					<option value="1985">1985</option>
+					<option value="1984">1984</option>
+					<option value="1983">1983</option>
+					<option value="1982">1982</option>
+					<option value="1981">1981</option>
+					<option value="1980">1980</option>
+					<option value="1979">1979</option>
+					<option value="1978">1978</option>
+					<option value="1977">1977</option>
+					<option value="1976">1976</option>
+					<option value="1975">1975</option>
+					<option value="1974">1974</option>
+					<option value="1973">1973</option>
+					<option value="1972">1972</option>
+					<option value="1971">1971</option>
+					<option value="1970">1970</option>
+					<option value="1969">1969</option>
+					<option value="1968">1968</option>
+					<option value="1967">1967</option>
+					<option value="1966">1966</option>
+					<option value="1965">1965</option>
+					<option value="1964">1964</option>
+					<option value="1963">1963</option>
+					<option value="1962">1962</option>
+					<option value="1961">1961</option>
+					<option value="1960">1960</option>
+					<option value="1959">1959</option>
+					<option value="1958">1958</option>
+					<option value="1957">1957</option>
+					<option value="1956">1956</option>
+					<option value="1955">1955</option>
+					<option value="1954">1954</option>
+					<option value="1953">1953</option>
+					<option value="1952">1952</option>
+					<option value="1951">1951</option>
+					<option value="1950">1950</option>
+			</select><br>
+			CURP (Opcional):<br>
+			<input type="text" name="input_curp" id="input_curp" onkeyup="validar_formulario()" 
+			onkeydown="validar_formulario()"><br>
+			Email: <span id="error_4">* Introduce tu email en formato usuario@ejemplo.com </span><br>
+			<input type="text" name="input_email" id="input_email" onkeyup="validar_formulario()" 
+			onkeydown="validar_formulario()" required><br>
+			Género:<br>
+			<input type="radio" name="input_genero" id="input_genero_hombre" value="Hombre" onclick="validar_formulario()" required> Hombre
+			<input type="radio" name="input_genero" id="input_genero_mujer" value="Mujer" onclick="validar_formulario()"> Mujer <br>
+			RFC:<br>
+			<input type="text" name="input_rfc" id="input_rfc" onkeyup="validar_formulario()" 
+			onkeydown="validar_formulario()" required><br>
+			<h3>Dirección:</h3>
+			Calle y Número:<br>
+			<input type="text" name="input_calle" id="input_calle" onkeyup="validar_formulario()" 
+			onkeydown="validar_formulario()" required><br>
+			Colonia:<br>
+			<input type="text" name="input_colonia" id="input_colonia" onkeyup="validar_formulario()" 
+			onkeydown="validar_formulario()" required><br>
+			Código Postal: <span id="error_5">* Sólo se permiten números en este campo </span><br>
+			<input type="text" name="input_codigo_postal" id="input_codigo_postal" onkeyup="validar_formulario()" 
+			onkeydown="validar_formulario()" required><br>
+			Municipio o Delegación:<br>
+			<input type="text" name="input_municipio_delegacion" id="input_municipio_delegacion" onkeyup="validar_formulario()" 
+			onkeydown="validar_formulario()" required><br>
+			Ciudad o Estado:<br>
+			<input type="text" name="input_ciudad_estado" id="input_ciudad_estado" onkeyup="validar_formulario()" 
+			onkeydown="validar_formulario()" required><br>
+			Categoría:<br>
+			<input type="radio" name="input_categoria" id="input_categoria_docente" value="Docente" 
+			onclick="validar_formulario()" required> Docente 
+			<input type="radio" name="input_categoria" id="input_categoria_administrativo" value="Administrativo" 
+			onclick="validar_formulario()"> Administrativo
+			<input type="radio" name="input_categoria" id="input_categoria_alumno" value="Alumno" 
+			onclick="validar_formulario()"> Alumno
+			<input type="radio" name="input_categoria" id="input_categoria_otro" value="Otro" 
+			onclick="validar_formulario()"> Otro <br>
+			<h3>Institución de Procedencia</h3>
+			Institución:<br>
+			<select name="select_institucion" id="select_institucion" onchange="validar_formulario()" required>
+				<option value="">Elegir</option>
+				<option value="IPN">IPN</option>
+				<option value="Otro">Otro</option>
+			</select><br>
+			Nivel Académico:<br>
+			<select name="select_nivel_academico" id="select_nivel_academico" onchange="validar_formulario()" required>
+				<option value="">Elegir</option>
+				<option value="Medio Superior">Medio Superior</option>
+				<option value="Superior">Superior</option>
+				<option value="Posgrado">Posgrado</option>
+			</select><br>
+			Unidad Académica:<br>
+			<div id="institucion_combo_1">
+				<b>IPN - Nivel Medio Superior</b><br>
+				<select name="select_medio_superior" id="select_medio_superior" onchange="validar_formulario()">
+					<option value="">Elegir</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 01 'GONZALO VÁZQUEZ VELA'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 01 "GONZALO VÁZQUEZ VELA"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 02 'MIGUEL BERNARD'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 02 "MIGUEL BERNARD"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 03 'ESTANISLAO RAMÍREZ RUÍZ'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 03 "ESTANISLAO RAMÍREZ RUÍZ"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 04 'LÁZARO CÁRDENAS'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 04 "LÁZARO CÁRDENAS"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 05 'BENITO JUÁREZ'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 05 "BENITO JUÁREZ"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 06 'MIGUEL OTHÓN DE MENDIZABAL'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 06 "MIGUEL OTHÓN DE MENDIZABAL"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 07 'CUAUHTÉMOC'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 07 "CUAUHTÉMOC"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 08 'NARCISSO BASSOLS'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 08 "NARCISSO BASSOLS"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 09 'JUAN DE DIOS BATÍZ'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 09 "JUAN DE DIOS BATÍZ"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 10 'CARLOS VALLEJO MARQUÉZ'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 10 "CARLOS VALLEJO MARQUÉZ"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 11 'WILFRIDO MASSIEU'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 11 "WILFRIDO MASSIEU"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 12 'JOSÉ MARIA MORELOS Y PAVÓN'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 12 "JOSÉ MARIA MORELOS Y PAVÓN"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 13 'RICARDO FLORES MAGÓN'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 13 "RICARDO FLORES MAGÓN"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 14 'LUIS ENRIQUE ERRO'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 14 "LUIS ENRIQUE ERRO"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 15 'DIÓDORO ANTÚNEZ ECHEGARAY'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 15 "DIÓDORO ANTÚNEZ ECHEGARAY"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 16 'HIDALGO'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 16 "HIDALGO"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 17 'LEÓN GUANAJUATO'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 17 "LEÓN GUANAJUATO"</option>
+					<option value="CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 18 'ZACATECAS'">
+					CENTRO DE ESTUDIOS CIENTÍFICOS Y TECNOLÓGICOS NO. 18 "ZACATECAS"</option>
+					<option value="CENTRO DE ESTUDIOS TECNOLÓGICOS NO. 01 'WALTER CROSS BUCHANAN'">
+					CENTRO DE ESTUDIOS TECNOLÓGICOS NO. 01 "WALTER CROSS BUCHANAN"</option>
+				</select>
+			</div>
+			<div id="institucion_combo_2">
+				<b>IPN - Nivel Superior</b><br>
+				<select name="select_superior" id="select_superior" onchange="validar_formulario()">
+					<option value="">Elegir</option>
+					<option value="CENTRO INTERDISCIPLINARIO DE CIENCIAS DE LA SALUD - UNIDAD MILPA ALTA (CICS - UMA)">
+					CENTRO INTERDISCIPLINARIO DE CIENCIAS DE LA SALUD - UNIDAD MILPA ALTA (CICS - UMA)</option>
+					<option value="CENTRO INTERDISCIPLINARIO DE CIENCIAS DE LA SALUD - UNIDAD SANTO TOMÁS (CICS - UST)">
+					CENTRO INTERDISCIPLINARIO DE CIENCIAS DE LA SALUD - UNIDAD SANTO TOMÁS (CICS - UST)</option>
+					<option value="ESCUELA NACIONAL DE CIENCIAS BIOLÓGICAS ENCB">
+					ESCUELA NACIONAL DE CIENCIAS BIOLÓGICAS ENCB</option>
+					<option value="ESCUELA NACIONAL DE MEDICINA Y HOMEOPATÍA ENMYH">
+					ESCUELA NACIONAL DE MEDICINA Y HOMEOPATÍA ENMYH</option>
+					<option value="ESCUELA SUPERIOR DE COMERCIO Y ADMINISTRACIÓN UNIDAD SANTO TOMÁS">
+					ESCUELA SUPERIOR DE COMERCIO Y ADMINISTRACIÓN UNIDAD SANTO TOMÁS</option>
+					<option value="ESCUELA SUPERIOR DE COMERCIO Y ADMINISTRACIÓN UNIDAD TEPEPAN">
+					ESCUELA SUPERIOR DE COMERCIO Y ADMINISTRACIÓN UNIDAD TEPEPAN</option>
+					<option value="ESCUELA SUPERIOR DE CÓMPUTO ESCOM">
+					ESCUELA SUPERIOR DE CÓMPUTO ESCOM</option>
+					<option value="ESCUELA SUPERIOR DE ECONOMÍA ESE">
+					ESCUELA SUPERIOR DE ECONOMÍA ESE</option>
+					<option value="ESCUELA SUPERIOR DE ENFERMERÍA Y OBSTETRICIA ESEO">
+					ESCUELA SUPERIOR DE ENFERMERÍA Y OBSTETRICIA ESEO</option>
+					<option value="ESCUELA SUPERIOR DE FÍSICA MATEMÁTICAS ESFM">
+					ESCUELA SUPERIOR DE FÍSICA MATEMÁTICAS ESFM</option>
+					<option value="ESCUELA SUPERIOR DE INGENIERÍA MECÁNICA Y ELÉCTRICA (ESIME) UNIDAD AZCAPOTZALCO">
+					ESCUELA SUPERIOR DE INGENIERÍA MECÁNICA Y ELÉCTRICA (ESIME) UNIDAD AZCAPOTZALCO</option>
+					<option value="ESCUELA SUPERIOR DE INGENIERÍA MECÁNICA Y ELÉCTRICA (ESIME) UNIDAD CULHUACÁN">
+					ESCUELA SUPERIOR DE INGENIERÍA MECÁNICA Y ELÉCTRICA (ESIME) UNIDAD CULHUACÁN</option>
+					<option value="ESCUELA SUPERIOR DE INGENIERÍA MECÁNICA Y ELÉCTRICA (ESIME) UNIDAD TICOMÁN">
+					ESCUELA SUPERIOR DE INGENIERÍA MECÁNICA Y ELÉCTRICA (ESIME) UNIDAD TICOMÁN</option>
+					<option value="ESCUELA SUPERIOR DE INGENIERÍA MECÁNICA Y ELÉCTRICA (ESIME) UNIDAD ZACATENCO">
+					ESCUELA SUPERIOR DE INGENIERÍA MECÁNICA Y ELÉCTRICA (ESIME) UNIDAD ZACATENCO</option>
+					<option value="ESCUELA SUPERIOR DE INGENIERÍA QUÍMICA E INDUSTRIAS EXTRACTIVAS ESIQIE">
+					ESCUELA SUPERIOR DE INGENIERÍA QUÍMICA E INDUSTRIAS EXTRACTIVAS ESIQIE</option>
+					<option value="ESCUELA SUPERIOR DE INGENIERÍA TEXTIL ESIT">
+					ESCUELA SUPERIOR DE INGENIERÍA TEXTIL ESIT</option>
+					<option value="ESCUELA SUPERIOR DE INGENIERÍA Y ARQUITECTURA (ESIA) UNIDAD TECAMACHALCO">
+					ESCUELA SUPERIOR DE INGENIERÍA Y ARQUITECTURA (ESIA) UNIDAD TECAMACHALCO</option>
+					<option value="ESCUELA SUPERIOR DE INGENIERÍA Y ARQUITECTURA (ESIA) UNIDAD TICOMÁN">
+					ESCUELA SUPERIOR DE INGENIERÍA Y ARQUITECTURA (ESIA) UNIDAD TICOMÁN</option>
+					<option value="ESCUELA SUPERIOR DE INGENIERÍA Y ARQUITECTURA (ESIA) UNIDAD ZACATENCO">
+					ESCUELA SUPERIOR DE INGENIERÍA Y ARQUITECTURA (ESIA) UNIDAD ZACATENCO</option>
+					<option value="ESCUELA SUPERIOR DE MEDICINA ESM">
+					ESCUELA SUPERIOR DE MEDICINA ESM</option>

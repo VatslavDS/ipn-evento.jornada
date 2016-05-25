@@ -1,0 +1,16 @@
+{
+  "nombre": "Prueba",
+  "apellido_paterno": "Prueba_apellido_parterno",
+  "apellido_materno": "Prueba_apellido_materno",
+  "fecha_de_nacimiento": "Wed May 25 2016 11:13:28 GMT-0500 (CDT)",
+  "CURP": "MAEJ872345MMEID",
+  "email": "prueba@prueba.com",
+  "calle": "97",
+  "colonia": "benito juarez",
+  "codigo_postal": "15678",
+  "municipio_delegacion": "Benito Juarez",
+  "ciudad_estado": "Ciudad de M\u00e9xico",
+  "categoria": "Nueva_categoria",
+  "nombre_institucion": "IPN",
+  "nivel_academico": "Superior"
+}
