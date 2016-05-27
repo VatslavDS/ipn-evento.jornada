@@ -44,25 +44,23 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-    console.log(dummy);
-    var modelCompetidor = new Competitor(dummy); 
-
-    modelCompetidor.save(function(err, doc){
-        if(err) {console.log(err); return res.send("Error");}
-    	res.render('competitor.swig');	
-    });
-
+    res.render('competitor.swig');	
 });
 
 router.post('/competidor-form', function(req, res, next) {
     var files = req.files;
     var body = req.body;
-
-    var modelCompetidor = new Competidor(proyecto); 
+    body.unidad_academica =  body.unidad_academica[0];
+    console.log(body)
+    var modelCompetidor = new Competitor(body); 
 
     modelCompetidor.save(function(err, doc){
-        if(err) {console.log(err); return res.send("Error");}
-	    res.send("ok");
+        if(err) {
+	    console.log(err); 
+	    res.send("Error " + err);
+	} else {
+	    res.send("Registro Guardado");
+	}
     });
 });
 

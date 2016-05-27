@@ -9,7 +9,7 @@ var config = {
       name: 'ipn-evento-jornadas'
     },
     port: process.env.PORT || 3013,
-    db: 'mongodb://localhost/ipn-evento-jornadas'
+    db: 'mongodb://localhost/ipn-evento-jornadas-dev'
   },
 
   test: {
@@ -18,7 +18,7 @@ var config = {
       name: 'ipn-evento-jornadas'
     },
     port: process.env.PORT || 3013,
-    db: 'mongodb://localhost/ipn-evento-jornadas'
+    db: 'mongodb://localhost/ipn-evento-jornadas-test'
   },
 
   production: {
@@ -27,7 +27,7 @@ var config = {
       name: 'ipn-evento-jornadas'
     },
     port: process.env.PORT || 3013,
-    db: 'mongodb://localhost/ipn-evento-jornadas'
+    db: 'mongodb://localhost/ipn-evento-jornadas-prod'
   }
 };
 

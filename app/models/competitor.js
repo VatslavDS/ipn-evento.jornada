@@ -23,14 +23,30 @@ var CompetitorDataSchema = new Schema({
 	min : 5,
 	max : 30
     },
-    fecha_de_nacimiento: {
-	type: Date,
+    dia: {
+	type: String,
+	required: true
+    },
+    mes: {
+	type: String,
+	required: true
+    },
+    ano: {
+	type: String,
 	required: true
     },
     CURP : {
 	type: String
     },
     email: {
+	type: String,
+	required: true
+    },
+    genero: {
+	type: String,
+	required: true
+    },
+    rfc: {
 	type: String,
 	required: true
     },
@@ -59,12 +75,17 @@ var CompetitorDataSchema = new Schema({
 	required: true
     },
     nombre_institucion: {
-	type: String,
-	required: true
+	type: String
     },
     nivel_academico: {
+	type: String
+    },
+    unidad_academica: {
+	type: String
+    },
+    otro: {
 	type: String,
-	required: true
+	required: false
     }
 });
 
