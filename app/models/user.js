@@ -4,7 +4,10 @@ var Schema = mongoose.Schema;
 
 var UserIPNSchema = new Schema({
     username: String,
-    password: String
+    password: String,
+    activated: Boolean,
+    hashToEmail: String,
+    hasProject: {type: Boolean, default: false}
 });
 
 

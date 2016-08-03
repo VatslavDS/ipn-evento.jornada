@@ -86,7 +86,11 @@ var CompetitorDataSchema = new Schema({
     otro: {
 	type: String,
 	required: false
-    }
+},
+projid: {
+  type: String,
+  required: true
+}
 });
 
 mongoose.model('Competitor', CompetitorDataSchema);

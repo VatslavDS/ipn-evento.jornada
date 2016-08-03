@@ -1,6 +1,10 @@
 var LocalStrategy  = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = mongoose.model('UserIPN');
+var nodemailer = require('nodemailer');
+//var smtpTransport = require('nodemailer-smtp-transport');
+
+var transporter = nodemailer.createTransport('smtps://vatslavds@gmail.com:Jorge57623558***@smtp.gmail.com');
 
 
 // expose this function to our app using module.exports
@@ -34,9 +38,29 @@ module.exports = function(passport) {
 				// if there is no user with that email
                 // create the user
                 var newUser  = new User();
-		console.log("El user "+ newUser);
+                var randomstring = require("randomstring");
+
+		            console.log("El user "+ newUser);
                 newUser.username = username;
-                newUser.password = newUser.generateHash(password); 
+                newUser.password = newUser.generateHash(password);
+                newUser.activated= false;
+                newUser.hashToEmail = randomstring.generate(20);
+                var mess = 'http://localhost:3013/activated/' + newUser.hashToEmail;
+                var mailOptions = {
+                    from: 'vatslavds@gmail.com', // sender address
+                    to: 'gardna_big@hotmail.com', // list of receivers
+                    subject: 'Alta de la aplicación!!', // Subject line
+                    text: mess,
+                    html: '<b>Hello world </b><a href='+ "" + mess + ""+'>Click aqui</a>' // html body
+                };
+
+                transporter.sendMail(mailOptions, function(error, info){
+                if(error){
+                  return console.log(error);
+                }
+                  console.log('Message sent: ' + info.response);
+
+                });
 
 				// save the user
                 newUser.save(function(err) {
