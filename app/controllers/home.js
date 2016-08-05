@@ -45,6 +45,10 @@ module.exports = function (app) {
   app.use('/', router);
 };
 
+router.get('/', isLoggedIn, function(req, res, next) {
+  
+});
+
 router.get('/proyecto-new', isLoggedIn, function (req, res, next) {
     User.findOne({'_Id': req.user._id}, function(err, user) {
         if(err && user != null) {
