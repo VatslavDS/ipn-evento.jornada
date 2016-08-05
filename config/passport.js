@@ -4,7 +4,7 @@ var User = mongoose.model('UserIPN');
 var nodemailer = require('nodemailer');
 //var smtpTransport = require('nodemailer-smtp-transport');
 
-var transporter = nodemailer.createTransport('smtps://vatslavds@gmail.com:Jorge57623558***@smtp.gmail.com');
+var transporter = nodemailer.createTransport('smtps://correo.ipn.mx:JPUBLICACION123@smtp.gmail.com');
 
 
 // expose this function to our app using module.exports
@@ -47,8 +47,8 @@ module.exports = function(passport) {
                 newUser.hashToEmail = randomstring.generate(20);
                 var mess = 'http://localhost:3013/activated/' + newUser.hashToEmail;
                 var mailOptions = {
-                    from: 'vatslavds@gmail.com', // sender address
-                    to: 'gardna_big@hotmail.com', // list of receivers
+                    from: 'correo.ipn.mx', // sender address
+                    to: newUser.username, // list of receivers
                     subject: 'Alta de la aplicación!!', // Subject line
                     text: mess,
                     html: '<b>Hello world </b><a href='+ "" + mess + ""+'>Click aqui</a>' // html body
