@@ -4,7 +4,7 @@ var User = mongoose.model('UserIPN');
 var nodemailer = require('nodemailer');
 //var smtpTransport = require('nodemailer-smtp-transport');
 
-var transporter = nodemailer.createTransport('smtps://publicacionesupev@ipn.mx:PUBLICACION123@correo.ipn.mx');
+var transporter = nodemailer.createTransport('smtp://publicacionesupev@ipn.mx:PUBLICACION123@correo.ipn.mx');
 
 
 // expose this function to our app using module.exports
